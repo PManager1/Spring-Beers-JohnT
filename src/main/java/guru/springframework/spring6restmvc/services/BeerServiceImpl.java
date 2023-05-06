@@ -1,6 +1,5 @@
 package guru.springframework.spring6restmvc.services;
 
-import guru.springframework.spring6restmvc.controllers.BeerController;
 import guru.springframework.spring6restmvc.model.Beer;
 import guru.springframework.spring6restmvc.model.BeerStyle;
 import lombok.extern.slf4j.Slf4j;
@@ -8,15 +7,15 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Slf4j
 public class BeerServiceImpl implements BeerService {
 
     private Map<UUID, Beer> beerMap;
+
+//    Constructor below of no args.
     public BeerServiceImpl() {
         this.beerMap = new HashMap<>();
 
@@ -61,8 +60,10 @@ public class BeerServiceImpl implements BeerService {
         beerMap.put(beer3.getId(), beer3);
     }
 
-
-
+@Override
+public List<Beer> listBeers(){
+        return new ArrayList<>(beerMap.values());
+}
 
     @Override
     public Beer getBeerById(UUID id) {
@@ -71,19 +72,6 @@ public class BeerServiceImpl implements BeerService {
 
         log.debug("Get Beer id in serice was called");
 
-
-
-
-        return Beer.builder()
-                .id(id)
-                .version(1)
-                .beerName("Galaxy cat")
-                .beerStyle(BeerStyle.LAGER)
-                .upc("21324")
-                .price(new BigDecimal("12.23"))
-                .quantityOnHand(122)
-                .createdDate(LocalDateTime.now())
-                .updateDate(LocalDateTime.now())
-                .build();
+        return beerMap.get(id);
     }
 }
