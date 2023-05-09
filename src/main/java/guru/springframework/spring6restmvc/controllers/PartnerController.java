@@ -1,7 +1,9 @@
 package guru.springframework.spring6restmvc.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.springframework.spring6restmvc.model.Partner;
 import guru.springframework.spring6restmvc.services.PartnerService;
+import io.micrometer.observation.Observation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -13,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -25,39 +29,59 @@ import java.util.UUID;
 public class PartnerController {
 
     private final RestTemplateBuilder restTemplateBuilder;
-    private static final String BASE_URL = "http://localhost:8081"; private static final String GET_BEER_PATH = "/api/v1/partner";
-
+    private static final String BASE_URL = "http://localhost:8081";
+    private static final String GET_BEER_PATH = "/api/v1/partner";
 
 
 // Should be insid the method.
 
 
-
-
     @RequestMapping(method = RequestMethod.GET)
-    public List<Partner> listPartners(){
+    public List<Partner> listPartners() {
 
 //        return partnerService.listPartners();
         System.out.println("34- this Execute method is called ");
 
         RestTemplate restTemplate = restTemplateBuilder.build();
 
-// First, let's make the call with RestTemplate.getForEntity and
-// use a ResponseEntity of type Object[] to collect the response:
 
-        ResponseEntity<Object[]> responseEntity =
-                restTemplate.getForEntity(BASE_URL + GET_BEER_PATH , Object[].class);
+        ResponseEntity<Partner[]> responseEntity =
+                restTemplate.getForEntity(BASE_URL + GET_BEER_PATH, Partner[].class);
 
-        System.out.println("59-  Coming thru ");
+        Partner[] partnerArray = responseEntity.getBody();
 
-        // Next, we can extract the body into our array of Object:
-        Object[] objects = responseEntity.getBody();
 
-        System.out.println("56-  objects = " + objects[0] );
+  /*      System.out.println("72-  partnerArray = " + partnerArray);
+//        Arrays.stream(partnerArray).toList();
+        System.out.println("78-" + Arrays.stream(partnerArray).toList());  */
+
+ // From Video 4 Accessing
+        Collection <Partner> partners = new ArrayList<>(Arrays.asList(partnerArray));
+
+        for (Partner part : partners) {
+            System.out.println(part.getFirstName());
+        }
+
+//        Not working
+        for (Partner part : partners) {
+            if ( part.getFirstName() == "Crystal" ){
+                System.out.println("67--part.getLastName()"+ part.getLastName());
+            }
+        }
+
+        System.out.println("72--------");
+        partners.stream().filter(new Predicate<Partner>() {
+            @Override
+            public boolean test(Partner partner) {
+                return partner.getFirstName().equals("Crystal");
+//                return false;
+            }
+        }).forEach(partner -> System.out.println(partner.getLastName()));
+
+
+
+
 
         return null;
     }
-
-
-
 }
