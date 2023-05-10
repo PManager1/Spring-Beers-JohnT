@@ -1,4 +1,14 @@
 
+
+List <String> ConsecutiveDates = new ArrayList<String>();
+
+HashMap<String, String> selectedHM = new HashMap<String, String>();
+
+
+selectedHM.put(partnerArray[i].getEmail()  , currentDate.toString());
+selectedHM.put(1 , currentDate.toString());
+
+
 package guru.springframework.spring6restmvc.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -65,16 +65,24 @@ public class PartnerController {
             System.out.println( "65 - if this with contains ? " + partnerArray[i].getAvailableDates().contains("2017-04-30"));
             System.out.println("66- current= searching next date=  2017-04-30  inside of the array = "+  partnerArray[i].getAvailableDates());
 
-//                String AllDateObjs [] = partnerArray[i].getAvailableDates().
-                List <String> ConsecutiveDates = new ArrayList<String>();
+
+// Use ConsecutiveDates to
+
+//            HashMap<Integer, String> selectedHM = new HashMap<Integer, String>();
+
+
+            HashMap<String, List<String>> selectedHM = new HashMap<>();
+            List <String> ConsecutiveDates = new ArrayList<String>();
+
 // Inside each object of an array of Objects.
 
 //            String [] array_of_Dates = partnerArray[i].getAvailableDates()
 //            Inside getAvailableDates() of the first ArrayList.
                 for ( int j=0; j<partnerArray[i].getAvailableDates().size(); j++ ){
-                    System.out.println( "73----Each Date inside one Object=" + partnerArray[i].getAvailableDates().get(j) );
-                    String tempcurrentDate = partnerArray[i].getAvailableDates().get(j);
 
+                    System.out.println( "73----Each Date inside one Object=" + partnerArray[i].getAvailableDates().get(j) );
+
+                    String tempcurrentDate = partnerArray[i].getAvailableDates().get(j);
 
                         LocalDate currentDate = LocalDate.parse(tempcurrentDate);
                         LocalDate nextdate = currentDate.plusDays(1);
@@ -84,6 +92,8 @@ public class PartnerController {
 
                             String nextdateSt = nextdate.toString();
                         System.out.println("86---yes it contains ="+ partnerArray[i].getAvailableDates().contains(nextdateSt));
+// Inspecting if availableDates contain tomorrow ( nextDate ).
+// put the email and the dates inside the selectedMap.
                             boolean contains = partnerArray[i].getAvailableDates().contains(nextdateSt);
 
 
@@ -94,12 +104,16 @@ public class PartnerController {
                             System.out.println("94---yes it contains");
                             ConsecutiveDates.add(currentDate.toString());
                         }
+                    System.out.println("107- for first="+ partnerArray[i].getFirstName()+"  ConsecutiveDates are = "+  ConsecutiveDates);
 
                 }
 
-            System.out.println("101--"+ partnerArray[i].getFirstName() +   "--ConsecutiveDates ="+ ConsecutiveDates);
+                         selectedHM.put(partnerArray[i].getFirstName(), ConsecutiveDates );
+                System.out.println("111--selectedHM ConsecutiveDates are in selectedHM"+  selectedHM);
 
         }
+
+        System.out.println("116--selectedHM ConsecutiveDates are in selectedHM"+  selectedHM);
 
         return null;
     }
