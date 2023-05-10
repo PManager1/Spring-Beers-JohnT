@@ -53,28 +53,26 @@ public class PartnerController {
         Collection <Partner> partners = new ArrayList<>(Arrays.asList(partnerArray));
 
 
+        Map<String, List<Partner>> studlistGrouped =
+                partners.stream().collect(Collectors.groupingBy(w -> w.getCountry()));
+        System.out.println( "62studlistGrouped=" + studlistGrouped );
+
+        Map.Entry String,  firstEntry = studlistGrouped.entrySet().iterator().next();
+        System.out.println("First key: " + firstEntry.getKey());
+        System.out.println("First value: " + firstEntry.getValue());
+
+
+//
         HashMap<String, List<String>> selectedHM = new HashMap<>();
 
         for (int i =0; i<partnerArray.length; i++ ){
-            System.out.println( "55 - " + partnerArray[i]);
-
-            System.out.println( "59 - " + partnerArray[0].getAvailableDates().getClass()  );
-            System.out.println( "60 - " + partnerArray[0].getAvailableDates());
-            System.out.println( "61 - " + partnerArray[0].getAvailableDates().toString() );
-            System.out.println( "62 - " + partnerArray[0].getAvailableDates().toArray().toString() );
-
-
             System.out.println( "65 - if this with contains ? " + partnerArray[i].getAvailableDates().contains("2017-04-30"));
             System.out.println("66- current= searching next date=  2017-04-30  inside of the array = "+  partnerArray[i].getAvailableDates());
 
 // Use ConsecutiveDates to
 //            HashMap<Integer, String> selectedHM = new HashMap<Integer, String>();
-
-
             List <String> ConsecutiveDates = new ArrayList<String>();
-
 // Inside each object of an array of Objects.
-
 //            String [] array_of_Dates = partnerArray[i].getAvailableDates()
 //            Inside getAvailableDates() of the first ArrayList.
                 for ( int j=0; j<partnerArray[i].getAvailableDates().size(); j++ ){
@@ -82,7 +80,6 @@ public class PartnerController {
                     System.out.println( "73----Each Date inside one Object=" + partnerArray[i].getAvailableDates().get(j) );
 
                     String tempcurrentDate = partnerArray[i].getAvailableDates().get(j);
-
                         LocalDate currentDate = LocalDate.parse(tempcurrentDate);
                         LocalDate nextdate = currentDate.plusDays(1);
                         System.out.println("81-Date ------------"+currentDate+" plus 1 days is "+nextdate);
@@ -107,12 +104,13 @@ public class PartnerController {
 
                 }
 
-                         selectedHM.put(partnerArray[i].getFirstName(), ConsecutiveDates );
+selectedHM.put(partnerArray[i].getFirstName(), ConsecutiveDates );
+
                 System.out.println("111--selectedHM ConsecutiveDates are in selectedHM"+  selectedHM);
 
         }
 
-        System.out.println("116--selectedHM ConsecutiveDates are in selectedHM"+  selectedHM);
+        System.out.println("116--selectedHM ( COMING CORRECT ) are in selectedHM"+  selectedHM);
 
         return null;
     }
