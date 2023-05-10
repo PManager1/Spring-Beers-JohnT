@@ -53,6 +53,8 @@ public class PartnerController {
         Collection <Partner> partners = new ArrayList<>(Arrays.asList(partnerArray));
 
 
+        HashMap<String, List<String>> selectedHM = new HashMap<>();
+
         for (int i =0; i<partnerArray.length; i++ ){
             System.out.println( "55 - " + partnerArray[i]);
 
@@ -65,13 +67,10 @@ public class PartnerController {
             System.out.println( "65 - if this with contains ? " + partnerArray[i].getAvailableDates().contains("2017-04-30"));
             System.out.println("66- current= searching next date=  2017-04-30  inside of the array = "+  partnerArray[i].getAvailableDates());
 
-
 // Use ConsecutiveDates to
-
 //            HashMap<Integer, String> selectedHM = new HashMap<Integer, String>();
 
 
-            HashMap<String, List<String>> selectedHM = new HashMap<>();
             List <String> ConsecutiveDates = new ArrayList<String>();
 
 // Inside each object of an array of Objects.
