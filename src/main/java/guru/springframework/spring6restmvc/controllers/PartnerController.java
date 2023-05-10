@@ -66,7 +66,7 @@ public class PartnerController {
             System.out.println("66- current= searching next date=  2017-04-30  inside of the array = "+  partnerArray[i].getAvailableDates());
 
 //                String AllDateObjs [] = partnerArray[i].getAvailableDates().
-                String ConsecutiveDates [];
+                List <String> ConsecutiveDates = new ArrayList<String>();
 // Inside each object of an array of Objects.
 
 //            String [] array_of_Dates = partnerArray[i].getAvailableDates()
@@ -78,25 +78,26 @@ public class PartnerController {
 
                         LocalDate currentDate = LocalDate.parse(tempcurrentDate);
                         LocalDate nextdate = currentDate.plusDays(1);
-                        System.out.println("80-Date ------------"+currentDate+" plus 1 days is "+nextdate);
+                        System.out.println("81-Date ------------"+currentDate+" plus 1 days is "+nextdate);
 
-                        System.out.println("82-partnerArray[i].getAvailableDates() ="+partnerArray[i].getAvailableDates());
+                        System.out.println("83-partnerArray[i].getAvailableDates() ="+partnerArray[i].getAvailableDates());
 
-                        System.out.println("84---yes it contains ="+ partnerArray[i].getAvailableDates().contains(nextdate));
-                            boolean contains = partnerArray[i].getAvailableDates().contains(nextdate);
-//                            String nextdateSt = nextdate.toString();
+                            String nextdateSt = nextdate.toString();
+                        System.out.println("86---yes it contains ="+ partnerArray[i].getAvailableDates().contains(nextdateSt));
+                            boolean contains = partnerArray[i].getAvailableDates().contains(nextdateSt);
+
 
 //                            System.out.format("86-Testing %s with result ", partnerArray[i].getAvailableDates(), nextdate);
-                            System.out.println("88- current= "+currentDate+ " & searching next date= " + nextdate +"  inside of the array = "+  partnerArray[i].getAvailableDates());
-                            System.out.println("86---yes it contains ="+ contains);
+                            System.out.println("91- current= "+currentDate+ " & searching next date= " + nextdate +"  inside of the array = "+  partnerArray[i].getAvailableDates());
+                            System.out.println("92---yes it contains ="+ contains);
                         if (contains){
-                            System.out.println("88---yes it contains");
-
+                            System.out.println("94---yes it contains");
+                            ConsecutiveDates.add(currentDate.toString());
                         }
 
                 }
 
-
+            System.out.println("101--"+ partnerArray[i].getFirstName() +   "--ConsecutiveDates ="+ ConsecutiveDates);
 
         }
 
